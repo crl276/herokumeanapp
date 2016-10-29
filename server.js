@@ -6,21 +6,9 @@ var express 			= require('express'),
 	mongoose			= require('mongoose'),
 	meetupsController 	= require('./server/controllers/meetups-controller');
 
- var uristring =
-    process.env.MONGOLAB_URI ||
-    process.env.MONGOHQ_URL ||
-    'mongodb://localhost/HelloMongoose';
+var uri = 'mongodb://heroku_vzm7j2qw:h8iikgfcfafrg2nr668rs34nnk@ds153845.mlab.com:53845/heroku_vzm7j2qw';
 
-    var theport = process.env.PORT || 5000;
-
-    mongoose.connect(uristring, function (err, res) {
-      if (err) {
-      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
-      } else {
-      console.log ('Succeeded connected to: ' + uristring);
-      }
-    });
-
+mongoose.connect(mongodbUri);
 
 app.use(bodyParser.urlencoded({
   extended: true

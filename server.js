@@ -4,23 +4,15 @@ var express 			= require('express'),
 	mongoose			= require('mongoose'),
 	meetupsController 	= require('./server/controllers/meetups-controller');
 
-var db;
+var mongoose = require('mongoose');    
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
+var mongodbUri = 'mongodb://user:pass@host:port/db';
 
-  db = database;
-  console.log("Database connection ready");
+mongoose.connect(mongodbUri);
 
-   var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
-});
+var db = mongoose.connection;
 
+db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -38,7 +30,8 @@ app.use('/js', express.static(__dirname + '/client/js'));
 //REST API
 app.get('/api/meetups', meetupsController.list);
 app.post('/api/meetups', meetupsController.create);
-
+/*
 app.listen(3000, function() {
 	console.log('I\'m Listening...');
 });
+*/

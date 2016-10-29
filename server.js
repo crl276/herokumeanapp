@@ -4,8 +4,9 @@ var express 			= require('express'),
 	mongoose			= require('mongoose'),
 	meetupsController 	= require('./server/controllers/meetups-controller');
 
-mongoose.connect('mongodb://localhost:27017/mean-demo2');
+var mongodbUri = 'mongodb://heroku_vzm7j2qw:h8iikgfcfafrg2nr668rs34nnk@ds153845.mlab.com:53845/heroku_vzm7j2qw';
 
+mongoose.connect(mongodbUri);
 
 app.use(bodyParser.urlencoded({
   extended: true

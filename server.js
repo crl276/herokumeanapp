@@ -1,12 +1,25 @@
 var express 			= require('express'),
+	http 				= require ('http');
+	mongoose 			= require ("mongoose"); 
 	app					= express();
 	bodyParser 			= require('body-parser'),
 	mongoose			= require('mongoose'),
 	meetupsController 	= require('./server/controllers/meetups-controller');
 
-var mongodbUri = 'mongodb://heroku_vzm7j2qw:h8iikgfcfafrg2nr668rs34nnk@ds153845.mlab.com:53845/heroku_vzm7j2qw';
+ var uristring =
+    process.env.MONGOLAB_URI ||
+    process.env.MONGOHQ_URL ||
+    'mongodb://localhost/HelloMongoose';
 
-mongoose.connect(mongodbUri);
+    var theport = process.env.PORT || 5000;
+
+    mongoose.connect(uristring, function (err, res) {
+      if (err) {
+      console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+      } else {
+      console.log ('Succeeded connected to: ' + uristring);
+      }
+    });
 
 
 app.use(bodyParser.urlencoded({

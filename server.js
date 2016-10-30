@@ -4,9 +4,21 @@ var express 			= require('express'),
 	mongoose			= require('mongoose'),
 	meetupsController 	= require('./server/controllers/meetups-controller');
 
-var mongodbUri = 'mongodb://heroku_vzm7j2qw:h8iikgfcfafrg2nr668rs34nnk@ds153845.mlab.com:53845/heroku_vzm7j2qw';
 
-mongoose.connect(mongodbUri);
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };       
+ 
+var mongodbUri = 'mongodb://heroku_vzm7j2qw:h8iikgfcfafrg2nr668rs34nnk@ds153845.mlab.com:53845/heroku_vzm7j2qw';
+ 
+mongoose.connect(mongodbUri, options);
+var conn = mongoose.connection;             
+ 
+conn.on('error', console.error.bind(console, 'connection error:'));  
+ 
+conn.once('open', function() {
+  // Wait for the database connection to establish, then start the app.                         
+});
+
 
 app.use(bodyParser.urlencoded({
   extended: true

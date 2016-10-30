@@ -25,8 +25,9 @@ app.use('/js', express.static(__dirname + '/client/js'));
 app.get('/api/meetups', meetupsController.list);
 app.post('/api/meetups', meetupsController.create);
 
-var port_number = server.listen(process.env.PORT || 3000);
-
+var port_number = server.listen(process.env.PORT || 5000);
+/*
 app.listen(3000, function() {
 	console.log('I\'m Listening...');
 });
+*/
